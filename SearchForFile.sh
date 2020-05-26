@@ -4,15 +4,24 @@ echo PROGRAM TO FIND A FILE ANYWHERE IN THE PARENT OR SUB DICTIONARIES
 read -p "Enter the name of the file you want to search" fileToSearch
 
 allFiles=$(ls -R)
-pattern='[a-zA-Z0-9._-]+\.[a-zA-Z0-9]+'
+patternForFile='[a-zA-Z0-9._-]+\.[a-zA-Z0-9]+'
+patternForDirectory='\./+'
 findCounter=0
+
 for file in $allFiles
 do
-    if [[ $file =~ $pattern ]]
+    if [[ $file =~ $patternForDirectory ]]
+    then    
+        currentDirectory=$file
+    fi
+
+    if [[ $file =~ $patternForFile ]]
     then
         if [[ "$file" == "$fileToSearch" ]]
         then
-            echo FILE FOUND $file
+            pathOfFile=$( echo $currentDirectory | awk -F: '{print $1}' )
+            echo FILE FOUND
+            echo PATH: $pathOfFile/$file
             ((findCounter++))
         fi
     fi
