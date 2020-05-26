@@ -1,11 +1,12 @@
 #!/bin/bash
-echo PROGRAM TO FIND A FILE ANYWHERE IN THE PARENT OR SUB DICTIONARIES
+echo PROGRAM TO FIND A FILE ANYWHERE IN THE PARENT OR SUB DIRECTORIES
 
+read -p "Enter a specific directory to search or Press enter for the current directory" directory
 read -p "Enter the name of the file you want to search" fileToSearch
 
-allFiles=$(ls -R)
+allFiles=$(ls -R $directory )
 patternForFile='[a-zA-Z0-9._-]+\.[a-zA-Z0-9]+'
-patternForDirectory='\./+'
+patternForDirectory='\.?/+'
 findCounter=0
 
 for file in $allFiles
